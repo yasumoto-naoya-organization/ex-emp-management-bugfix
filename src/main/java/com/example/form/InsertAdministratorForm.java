@@ -11,13 +11,13 @@ import jakarta.validation.constraints.NotBlank;
  */
 public class InsertAdministratorForm {
 	/** 名前 */
-	@NotBlank(message="名前は必須")
+	@NotBlank
 	private String name;
 	/** メールアドレス */
-	@NotBlank(message="メールアドレスは必須")
+	@NotBlank
 	private String mailAddress;
 	/** パスワード */
-	@NotBlank(message="パスワードは必須")
+	@NotBlank
 	private String password;
 
 	public String getName() {
