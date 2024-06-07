@@ -55,6 +55,11 @@ public class EmployeeController {
 		return "employee/list";
 	}
 
+//	@PostMapping("/searchName")
+//	public String searchName(Model model,SearchForm searchForm){
+//
+//	}
+
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を表示する
 	/////////////////////////////////////////////////////
