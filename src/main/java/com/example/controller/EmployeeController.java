@@ -51,25 +51,31 @@ public class EmployeeController {
 	 * @return 従業員一覧画面
 	 */
 	@GetMapping("/showList")
-	public String showList(Model model,FindByNameEmployeeForm findForm) {
-		List<Employee> employeeList = employeeService.showList();
-		model.addAttribute("employeeList", employeeList);
-		return "employee/list";
-	}
-
-	@PostMapping("/searchName")
-	public String searchName(@Validated FindByNameEmployeeForm findForm,
-							 BindingResult result,
-							 RedirectAttributes redirectAttributes,
-							 Model model){
+	public String showList(@Validated FindByNameEmployeeForm findForm,
+						   BindingResult result,
+						   RedirectAttributes redirectAttributes,
+						   Model model) {
 
 		if(result.hasErrors()){
-			return showList(model,findForm);
+			model.addAttribute("findForm",findForm);
+			return "employee/list";
 		}
-		List<Employee> employeeList = employeeService.searchName(findForm.getName());
-		model.addAttribute("employeeList",employeeList);
-		return "employee/list";
+
+		if (findForm.getName() == null) {
+			List<Employee> employeeList = employeeService.showList();
+			model.addAttribute("employeeList", employeeList);
+			return "employee/list";
+		}else{
+			List<Employee> employeeList = employeeService.searchName(findForm.getName());
+			model.addAttribute("employeeList",employeeList);
+			return "employee/list";
+		}
+
+
+
+
 	}
+
 
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を表示する

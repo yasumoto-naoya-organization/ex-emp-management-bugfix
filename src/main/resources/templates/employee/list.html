@@ -98,12 +98,12 @@
 
           <!-- ここにモックのtable要素を貼り付けます -->
           <form
-            th:action="@{/employee/searchName}"
-            th:object="${findForm}"
-            method="post"
+            th:action="@{/employee/showList}"
+            th:object="${findByNameEmployeeForm}"
+            method="get"
           >
             <label for="findName">名前検索：</label>
-            <input type="text" name="name" id="findName" />
+            <input type="text" name="name" id="findName" th:field="*{name}" />
             <button type="submit">検索</button><br />
           </form>
           <span th:if="${employeeList.size() == 0}">1件もありませんでした</span
