@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domain.Employee;
 import com.example.form.UpdateEmployeeForm;
 import com.example.service.EmployeeService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 従業員情報を操作するコントローラー.
@@ -50,14 +51,21 @@ public class EmployeeController {
 	 * @return 従業員一覧画面
 	 */
 	@GetMapping("/showList")
-	public String showList(Model model) {
+	public String showList(Model model,FindByNameEmployeeForm findForm) {
 		List<Employee> employeeList = employeeService.showList();
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
 
 	@PostMapping("/searchName")
-	public String searchName(Model model, FindByNameEmployeeForm findForm){
+	public String searchName(@Validated FindByNameEmployeeForm findForm,
+							 BindingResult result,
+							 RedirectAttributes redirectAttributes,
+							 Model model){
+
+		if(result.hasErrors()){
+			return showList(model,findForm);
+		}
 		List<Employee> employeeList = employeeService.searchName(findForm.getName());
 		model.addAttribute("employeeList",employeeList);
 		return "employee/list";
