@@ -44,5 +44,6 @@ public class AdministratorService {
 	public Administrator findByMailAddress(String mailAddress){
 		return administratorRepository.findByMailAddress(mailAddress);
 	}
+
 }
 
