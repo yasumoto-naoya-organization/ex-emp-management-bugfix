@@ -41,37 +41,34 @@ public class EmployeeController {
 		return new UpdateEmployeeForm();
 	}
 
+	/**
+	 * 従業員一覧画面を出力します.
+	 *
+	 * @param findForm 検索ワード
+	 * @param result バリデーション結果
+	 * @param model 従業員情報
+	 * @return 従業員一覧画面
+	 */
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員一覧を表示する
 	/////////////////////////////////////////////////////
-	/**
-	 * 従業員一覧画面を出力します.
-	 * 
-	 * @param model モデル
-	 * @return 従業員一覧画面
-	 */
+
 	@GetMapping("/showList")
 	public String showList(@Validated FindByNameEmployeeForm findForm,
 						   BindingResult result,
-						   RedirectAttributes redirectAttributes,
 						   Model model) {
 
 		if(result.hasErrors()){
 			model.addAttribute("findForm",findForm);
-			return "employee/list";
-		}
-
-		if (findForm.getName() == null) {
+		}else if (findForm.getName() == null) {
 			List<Employee> employeeList = employeeService.showList();
 			model.addAttribute("employeeList", employeeList);
-			return "employee/list";
 		}else{
 			List<Employee> employeeList = employeeService.searchName(findForm.getName());
 			model.addAttribute("employeeList",employeeList);
-			return "employee/list";
 		}
 
-
+		return "employee/list";
 
 
 	}
