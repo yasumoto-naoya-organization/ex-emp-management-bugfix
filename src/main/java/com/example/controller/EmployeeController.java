@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 
+import com.example.form.FindByNameEmployeeForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,10 +56,12 @@ public class EmployeeController {
 		return "employee/list";
 	}
 
-//	@PostMapping("/searchName")
-//	public String searchName(Model model,SearchForm searchForm){
-//
-//	}
+	@PostMapping("/searchName")
+	public String searchName(Model model, FindByNameEmployeeForm findForm){
+		List<Employee> employeeList = employeeService.searchName(findForm.getName());
+		model.addAttribute("employeeList",employeeList);
+		return "employee/list";
+	}
 
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を表示する
