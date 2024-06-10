@@ -57,6 +57,12 @@ public class EmployeeRepository {
 		return developmentList;
 	}
 
+	/**
+	 * 名前曖昧検索機能.
+	 *
+	 * @param name 検索文字
+	 * @return 検索結果情報
+	 */
 	public List<Employee> findByName(String name){
 		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count FROM employees WHERE name LIKE :name ORDER BY hire_date ASC;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name","%"+name+"%");
