@@ -42,6 +42,12 @@ public class EmployeeService {
         return employeeRepository.load(id);
 	}
 
+	/**
+	 * 名前の曖昧検索機能.
+	 *
+	 * @param name 検索キーワード
+	 * @return 検索結果のリスト
+	 */
 	public List<Employee> searchName(String name) {
         return employeeRepository.findByName(name);
 	}
