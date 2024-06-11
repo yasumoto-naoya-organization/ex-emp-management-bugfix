@@ -28,8 +28,7 @@ public class EmployeeService {
 	 * @return 従業員情報一覧
 	 */
 	public List<Employee> showList() {
-		List<Employee> employeeList = employeeRepository.findAll();
-		return employeeList;
+        return employeeRepository.findAll();
 	}
 
 	/**
@@ -40,8 +39,17 @@ public class EmployeeService {
 	 * @throws org.springframework.dao.DataAccessException 検索されない場合は例外が発生します
 	 */
 	public Employee showDetail(Integer id) {
-		Employee employee = employeeRepository.load(id);
-		return employee;
+        return employeeRepository.load(id);
+	}
+
+	/**
+	 * 名前の曖昧検索機能.
+	 *
+	 * @param name 検索キーワード
+	 * @return 検索結果のリスト
+	 */
+	public List<Employee> searchName(String name) {
+        return employeeRepository.findByName(name);
 	}
 
 	/**

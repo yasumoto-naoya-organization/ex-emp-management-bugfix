@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 
+import com.example.form.FindByNameEmployeeForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domain.Employee;
 import com.example.form.UpdateEmployeeForm;
 import com.example.service.EmployeeService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 従業員情報を操作するコントローラー.
@@ -39,21 +41,34 @@ public class EmployeeController {
 		return new UpdateEmployeeForm();
 	}
 
+	/**
+	 * 従業員一覧画面を出力します.
+	 *
+	 * @param findForm 検索ワード
+	 * @param model 従業員情報
+	 * @return 従業員一覧画面
+	 */
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員一覧を表示する
 	/////////////////////////////////////////////////////
-	/**
-	 * 従業員一覧画面を出力します.
-	 * 
-	 * @param model モデル
-	 * @return 従業員一覧画面
-	 */
+
 	@GetMapping("/showList")
-	public String showList(Model model) {
-		List<Employee> employeeList = employeeService.showList();
-		model.addAttribute("employeeList", employeeList);
+	public String showList(FindByNameEmployeeForm findForm,
+						   Model model) {
+
+		if (findForm.getName() == null) {
+			List<Employee> employeeList = employeeService.showList();
+			model.addAttribute("employeeList", employeeList);
+		}else{
+			List<Employee> employeeList = employeeService.searchName(findForm.getName());
+			model.addAttribute("employeeList",employeeList);
+		}
+
 		return "employee/list";
+
+
 	}
+
 
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を表示する
