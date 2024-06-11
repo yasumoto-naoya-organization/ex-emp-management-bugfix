@@ -54,13 +54,10 @@ public class EmployeeController {
 	/////////////////////////////////////////////////////
 
 	@GetMapping("/showList")
-	public String showList(@Validated FindByNameEmployeeForm findForm,
-						   BindingResult result,
+	public String showList(FindByNameEmployeeForm findForm,
 						   Model model) {
 
-		if(result.hasErrors()){
-			model.addAttribute("findForm",findForm);
-		}else if (findForm.getName() == null) {
+		if (findForm.getName() == null) {
 			List<Employee> employeeList = employeeService.showList();
 			model.addAttribute("employeeList", employeeList);
 		}else{
