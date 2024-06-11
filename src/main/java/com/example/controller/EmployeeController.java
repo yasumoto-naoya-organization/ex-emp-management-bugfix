@@ -45,7 +45,6 @@ public class EmployeeController {
 	 * 従業員一覧画面を出力します.
 	 *
 	 * @param findForm 検索ワード
-	 * @param result バリデーション結果
 	 * @param model 従業員情報
 	 * @return 従業員一覧画面
 	 */
